@@ -55,11 +55,6 @@ if(len(filenames)) == len(AZ_counter):
     #bins for the binning of distances
     bins = np.arange(0,1001,10,int)  
     binningvalues = bins.tolist() 
-
-
-    #creation of xls-File for distances
-    from openpyxl.workbook import Workbook
-    from openpyxl import load_workbook
     
 
     for f in filenames:
