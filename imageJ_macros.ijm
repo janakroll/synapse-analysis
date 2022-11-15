@@ -26,20 +26,6 @@ macro "Add Active Zone [n9]" {
   }
 }
 
-macro "Add Plasma membrane [n0]" {
-  type = selectionType();
-  if (type ==7) {
-    getSelectionCoordinates(xq, yq);
-    List.setMeasurements;
-    a = List.getValue("Length");
-    roiManager("Add");
-    roiManager("Select",roiManager("Count")-1);    
-    roiManager("Rename","Plasma_membrane-"+toString(xq[0])+","+toString(yq[0])+","+toString(a));
-  } else {
-   print("no freehand line");
-   beep;
-  }
-}
 
 macro "Add Endosome [n6]" {
   type = selectionType();
@@ -75,7 +61,6 @@ print(xc+" , "+yc);
 }
 
 
-
 macro "Add docked SV [n3]" {
   type = selectionType();
   if (type ==5) {
@@ -96,100 +81,14 @@ print(xc+" , "+yc);
 }
 
 
-macro "Add DCV [n4]" {
-  type = selectionType();
-  if (type ==5) {
-    getLine(x1, y1, x2, y2, lineWidth);
-    xc=(x2+x1)/2;
-    yc=(y2+y1)/2;
-print(xc+" , "+yc);
-    r=sqrt(pow((x2-x1),2)+pow((y2-y1),2))/2;
-    makeOval(xc-r,yc-r,r*2,r*2);
-    roiManager("Add");
-    roiManager("Select",roiManager("Count")-1);    
-    getSelectionBounds(x, y, width, height);
-    roiManager("Rename","DCV-"+toString(x+width/2)+","+toString(y+height/2));
-  } else {
-   print("no line");
-   beep;
-  }
-}
-
-
-macro "Add clathrin-coated vesicles [n5]" {
-  type = selectionType();
-  if (type ==5) {
-    getLine(x1, y1, x2, y2, lineWidth);
-    xc=(x2+x1)/2;
-    yc=(y2+y1)/2;
-print(xc+" , "+yc);
-    r=sqrt(pow((x2-x1),2)+pow((y2-y1),2))/2;
-    makeOval(xc-r,yc-r,r*2,r*2);
-    roiManager("Add");
-    roiManager("Select",roiManager("Count")-1);    
-    getSelectionBounds(x, y, width, height);
-    roiManager("Rename","CCV-"+toString(x+width/2)+","+toString(y+height/2));
-  } else {
-   print("no line");
-   beep;
-  }
-}
-
-
-macro "Add Pits [n7]" {
-  type = selectionType();
-  if (type ==7) {
-    getSelectionCoordinates(xq, yq);
-    List.setMeasurements;
-    a = List.getValue("Length");
-    roiManager("Add");
-    roiManager("Select",roiManager("Count")-1);    
-    roiManager("Rename","pits-"+toString(xq[0])+","+toString(yq[0])+","+toString(a));
-  } else {
-   print("no freehand line");
-   beep;
-  }
-}
-
-
-macro "Add clathrin-coated_pits [n8]" {
-  type = selectionType();
-  if (type ==7) {
-    getSelectionCoordinates(xq, yq);
-    List.setMeasurements;
-    a = List.getValue("Length");
-    roiManager("Add");
-    roiManager("Select",roiManager("Count")-1);    
-    roiManager("Rename","coated_pits-"+toString(xq[0])+","+toString(yq[0])+","+toString(a));
-  } else {
-   print("no freehand line");
-   beep;
-  }
-}
-
-
-macro "Add Buds [j]" {
-  type = selectionType();
-  if (type ==7) {
-    getSelectionCoordinates(xq, yq);
-    List.setMeasurements;
-    a = List.getValue("Length");
-    roiManager("Add");
-    roiManager("Select",roiManager("Count")-1);    
-    roiManager("Rename","buds-"+toString(xq[0])+","+toString(yq[0])+","+toString(a));
-  } else {
-   print("no freehand line");
-   beep;
-  }
-}
-
-
 macro "Export ROI[p]" {
   n = roiManager("count");
   id = getInfo("slice.label");
   dir = getDirectory("");
   file = File.open(dir+id+".txt");
-  for (j=0; j<n; j++) {    roiManager("select", j);    type = selectionType();
+  for (j=0; j<n; j++) {
+    roiManager("select", j);
+    type = selectionType();
     fullname = call("ij.plugin.frame.RoiManager.getName", j);
     name=substring(fullname,0,indexOf(fullname,"-"));
     if (type ==2 || type==3) {
@@ -222,7 +121,8 @@ macro "Export ROI[p]" {
       print (file,type+"\t"+name+"\t"+perimeter+"\t"+xcords+"\t"+ycords);
     } else {
       print("unknown type"+type);
-    }  }
+    }
+  }
   if (n == 1) {
     roiManager("Delete");
   } else if (n > 1) {
