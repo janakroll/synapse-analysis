@@ -14,6 +14,7 @@ from scipy.spatial import distance
 pi = np.pi
 
 #Input pixel size as calculated from scale in imageJ as nm/pixel
+#In Weber-Boyvat et al. 2022, pixel size = 0.7059
 pixel_size = 0.XYZ
 
 #Creation of lists for all parameters that will be appended with every txt file 
