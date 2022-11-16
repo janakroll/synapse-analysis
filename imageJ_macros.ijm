@@ -1,3 +1,6 @@
+// This imageJ macro is adapted from https://github.com/shigekiwatanabe/SynapsEM
+
+
 macro 'Freehand [f4]' {setTool(3)}
 macro 'Straight Line [7]' {setTool(4)}
 macro 'Freeline [8]' {setTool(6)}
