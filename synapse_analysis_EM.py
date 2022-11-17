@@ -194,7 +194,9 @@ if(len(filenames)) == len(AZ_counter):
     dist_to_AZ.columns = filenames
     binned_dist_to_AZ.columns = filenames  
    
-    alltogether = pd.DataFrame(list(zip(filenames, az_length, N_docked, D_avg, N_ELV, A_ELV,SVsurface)), columns =['File', 'Active zone length (nm)', 'N docked SVs', 'avg. SV diameter (nm)', 'N endosomal structures', 'avg. endosome area (nm²)', 'Summed SV surface area (nm²)']) 
+    alltogether = pd.DataFrame(list(zip(filenames, az_length, N_docked, D_avg, N_ELV, A_ELV,SVsurface)), 
+                               columns =['File', 'Active zone length (nm)', 'N docked SVs', 'avg. SV diameter (nm)', 
+                                         'N endosomal structures', 'avg. endosome area (nm²)', 'Summed SV surface area (nm²)']) 
     
     with pd.ExcelWriter('synapse_analysis.xlsx') as writer:  
         alltogether.to_excel(writer, sheet_name='Summary')
